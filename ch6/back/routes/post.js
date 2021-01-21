@@ -31,10 +31,13 @@ const upload = multer({
 router.post('/', isLoggedIn, upload.none(), async (req, res, next) => { // POST /post
   try {
     const hashtags = req.body.content.match(/#[^\s#]+/g);
+
+    // 게시글 저장을 back에 요청하면은 여기서 관련 정보를 저장하고
     const post = await Post.create({
       content: req.body.content,
       UserId: req.user.id,
     });
+    //여기 부분은 뭘 하는건지 잘 모르겠음.
     if (hashtags) {
       const result = await Promise.all(hashtags.map((tag) => Hashtag.findOrCreate({
         where: { name: tag.slice(1).toLowerCase() },
@@ -50,6 +53,7 @@ router.post('/', isLoggedIn, upload.none(), async (req, res, next) => { // POST 
         await post.addImages(image);
       }
     }
+    //여기서 게시글과 관련된 이미지, 커멘트, 게시글 입력자 정보를 가져오게 한다.
     const fullPost = await Post.findOne({
       where: { id: post.id },
       include: [{

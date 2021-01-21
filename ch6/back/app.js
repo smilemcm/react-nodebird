@@ -23,6 +23,10 @@ db.sequelize.sync()
 passportConfig();
 
 app.use(morgan('dev'));
+//여기서 credentials를 true를 해주었다.
+// 3060포트에서 오는거나 브라우저에서 오는 쿠키를 받을수있게 해주는 부분임.
+// 근데 nuxt로 서버렌더링 할때 쿠키를 못받아오는거는 front에서 보내주고 있지를 못하고 있다는 의미
+// 쿠키가 3060(front) 3065(back) 간에 호환이 될려고 하면은 cors에서 credentials:true를 해줘야
 app.use(cors({
   origin: 'http://localhost:3060',
   credentials: true,

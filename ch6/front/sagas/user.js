@@ -1,6 +1,7 @@
 import { all, fork, put, takeLatest, call } from 'redux-saga/effects';
 import axios from 'axios';
 
+//  내정보 가져올때LOAD_MY_INFO_
 import {
   CHANGE_NICKNAME_FAILURE,
   CHANGE_NICKNAME_REQUEST,

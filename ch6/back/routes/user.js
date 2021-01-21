@@ -9,7 +9,10 @@ const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
 const router = express.Router();
 
 router.get('/', async (req, res, next) => { // GET /user
+  //쿠키정보는 headers에 있다.
+  //console.log(req.headers);
   try {
+    //로그인을 하지 않으면 req.user에 아무런 정보가 없어서 if문을 추가한다.
     if (req.user) {
       const fullUserWithoutPassword = await User.findOne({
         where: { id: req.user.id },
